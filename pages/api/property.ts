@@ -12,7 +12,6 @@ export default async function handler(
 
     // res.status(200).json(await users())
     res.status(200).json({
-        req,
         fulfillmentMessages: [
             {
                 card: {
