@@ -37,10 +37,10 @@ export default async function handler(
 //Testing environmentz
 const createMany = async()=> await prisma.user.createMany({
   data:[
-    {name:"Bob",email:"hello@world.com"},
-    {name:"Bob 2",email:"bob2@world.com"},
-    {name:"Bob 3", email:"bob3@world.com"},
-    {name:"Bob 4", email:"bob4@world.com"}
+    {name:"Bob",email:"hello213@world.com"},
+    {name:"Bob 2",email:"bob2123@world.com"},
+    {name:"Bob 3", email:"bob3123@world.com"},
+    {name:"Bob 4", email:"bob4123@world.com"}
 
   ],
   skipDuplicates:true
@@ -62,7 +62,7 @@ const addUser = async (user:User):Promise<User | null>=>{
 }
 
 //Delete user
-const deleteUser = async (id:number)=>{
+const deleteUser = async (id:string)=>{
   return await prisma.user.delete({
     where:{
       id: id
