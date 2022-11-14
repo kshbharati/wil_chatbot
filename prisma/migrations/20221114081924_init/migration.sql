@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `user` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(255) NULL,
     `email` VARCHAR(255) NOT NULL,
     `userType` ENUM('ADMIN', 'CLIENT', 'AGENT') NOT NULL DEFAULT 'CLIENT',
@@ -13,7 +13,7 @@ CREATE TABLE `user` (
 
 -- CreateTable
 CREATE TABLE `contact_info` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `landline` VARCHAR(20) NULL,
     `mobile` VARCHAR(20) NULL,
     `website` VARCHAR(20) NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `contact_info` (
     `instagram` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
-    `userId` INTEGER NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `contact_info_userId_key`(`userId`),
     PRIMARY KEY (`id`)
@@ -30,7 +30,7 @@ CREATE TABLE `contact_info` (
 
 -- CreateTable
 CREATE TABLE `properties` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE `properties` (
 
 -- CreateTable
 CREATE TABLE `addresses` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` VARCHAR(191) NOT NULL,
     `addressline1` LONGTEXT NULL,
     `addressLine2` LONGTEXT NULL,
     `suburb` VARCHAR(255) NOT NULL,
     `postCode` VARCHAR(10) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
-    `propertyId` INTEGER NOT NULL,
+    `propertyId` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `addresses_propertyId_key`(`propertyId`),
     PRIMARY KEY (`id`)
@@ -55,9 +55,9 @@ CREATE TABLE `addresses` (
 
 -- CreateTable
 CREATE TABLE `enquiry` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `propertyId` INTEGER NOT NULL,
-    `userId` INTEGER NOT NULL,
+    `id` VARCHAR(191) NOT NULL,
+    `propertyId` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
     `enquiryType` ENUM('LISTING', 'ACCOUNT', 'TIME') NOT NULL DEFAULT 'LISTING',
     `enquirySubject` LONGTEXT NULL,
     `enquiryMessage` LONGTEXT NULL,

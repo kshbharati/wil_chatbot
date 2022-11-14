@@ -13,13 +13,13 @@ enum UserType{
   AGENT 
 }
 // model User {
-//   id    Int     @id @default(autoincrement())
+//   id    String     @id @default(autoincrement())
 //   name  String? @db.VarChar(255)
 //   email String  @unique(map: "email") @db.VarChar(255)
 // }
 
 model User {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(cuid())
   name String? @db.VarChar(255)
   email String @unique(map: "email") @db.VarChar(255)
   userType UserType @default(CLIENT)
@@ -33,7 +33,7 @@ model User {
 }
 
 model Contact {
-  id Int @id @default(autoincrement())
+  id  String @id @default(cuid())
 
   landline String? @db.VarChar(20)
   mobile String? @db.VarChar(20)
@@ -47,11 +47,11 @@ model Contact {
 
   
   user User @relation(fields: [userId], references:[id])
-  userId Int @unique
+  userId String @unique
   @@map("contact_info")
 }
 model Property {
-  id Int @id @default(autoincrement())
+  id  String @id @default(cuid())
   name String? @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,7 +64,7 @@ model Property {
 }
 
 model Address{
-  id Int @id @default(autoincrement())
+  id  String @id @default(cuid())
   addressline1 String? @db.LongText
   addressLine2 String? @db.LongText
   suburb String @db.VarChar(255)
@@ -73,7 +73,7 @@ model Address{
   updatedAt DateTime @updatedAt
 
   property Property @relation(fields: [propertyId], references: [id])
-  propertyId Int @unique
+  propertyId String @unique
 
   @@map("addresses")
 }
@@ -84,12 +84,12 @@ enum EnquiryType{
   TIME
 }
 model Enquiry{
-  id Int @id @default(autoincrement())
+  id  String @id @default(cuid())
   property Property @relation(fields: [propertyId], references: [id])
-  propertyId Int
+  propertyId String
 
   user User @relation(fields: [userId], references: [id])
-  userId Int
+  userId String
 
   enquiryType EnquiryType @default(LISTING)
   enquirySubject String? @db.LongText

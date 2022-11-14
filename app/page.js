@@ -13,7 +13,7 @@ export default function Page() {
             <div className="agentList">
                 <p>Agent Listing</p>
             </div>
-            <div class="contact">
+            <div className="contact">
                 <p>Contact Info</p>
             </div>
             <div className="chatbot">
