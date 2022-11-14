@@ -62,7 +62,7 @@ const addUser = async (user:User):Promise<User | null>=>{
 }
 
 //Delete user
-const deleteUser = async (id:number)=>{
+const deleteUser = async (id:string)=>{
   return await prisma.user.delete({
     where:{
       id: id
