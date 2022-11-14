@@ -29,7 +29,7 @@ export default async function userHandler(
     const {uid} = req.query;
     const user: User| null= await prisma.user.findUnique({
         where: {
-            id: uid,
+            id: uid as string,
         },
     });
     res.status(200).json(user);
