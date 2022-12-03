@@ -5,6 +5,18 @@ import { User } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+type CardFulfillmentResponse = {
+    card: {
+        title:string,
+        subtitle:string,
+        imageUri:string,
+        buttons:[{
+            text:string,
+            postback:string
+        }]
+    }
+}
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
