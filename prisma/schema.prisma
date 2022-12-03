@@ -7,10 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//Enum Datatypes
 enum UserType{
   ADMIN
   CLIENT
   AGENT 
+}
+
+enum EnquiryType{
+  LISTING
+  ACCOUNT
+  TIME
 }
 // model User {
 //   id    String     @id @default(autoincrement())
@@ -78,11 +85,7 @@ model Address{
   @@map("addresses")
 }
 
-enum EnquiryType{
-  LISTING
-  ACCOUNT
-  TIME
-}
+
 model Enquiry{
   id  String @id @default(cuid())
   property Property @relation(fields: [propertyId], references: [id])
