@@ -9,7 +9,8 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false, //Turn This false only for testing
+    "noImplicitAny": false, //If set strict true, delete this line
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -25,15 +26,18 @@
       }
     ],
     "paths": {
-      "@components/*":["components/*"]
-    }
+      "@components/*": [
+        "components/*"
+      ]
+    },
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "__test__/index.test.js", ],
+    ".next/types/**/*.ts",
+    "__test__/index.test.js"
+  ],
   "exclude": [
     "node_modules"
   ]
