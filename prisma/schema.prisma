@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,24 +8,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Enum Datatypes
+//Types of User
 enum UserType{
   ADMIN
   CLIENT
   AGENT 
 }
 
+//Type of Enquiry
 enum EnquiryType{
   LISTING
   ACCOUNT
   TIME
 }
-// model User {
-//   id    String     @id @default(autoincrement())
-//   name  String? @db.VarChar(255)
-//   email String  @unique(map: "email") @db.VarChar(255)
-// }
 
+//Type of Image for a property
+enum PropertyImageType{
+  FEATURED
+  ADDITIONAL
+}
+
+//PropertyType
+enum PropertyType{
+  LEASE
+  SELL
+}
+
+enum States{
+  ACT
+  NSW
+  WA
+  SA
+  NT
+  VIC
+  QLD
+  TAS
+}
+//User Model
 model User {
   id  String @id @default(cuid())
   name String? @db.VarChar(255)
@@ -36,9 +56,12 @@ model User {
   contact Contact?
 
   inquiry Enquiry[]
+
+  property Property[] //Lists all the properties handled by an agent.
   @@map("user")
 }
 
+//User Contact Model One to One with User Model
 model Contact {
   id  String @id @default(cuid())
 
@@ -53,29 +76,56 @@ model Contact {
   updatedAt DateTime @updatedAt
 
   
-  user User @relation(fields: [userId], references:[id])
-  userId String @unique
+  user User? @relation(fields: [userId], references:[id])
+  userId String? @unique
   @@map("contact_info")
 }
+
+//Property Model Many To One With User Model
 model Property {
   id  String @id @default(cuid())
   name String? @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  propertyInformation PropertyInformation?
   address Address?
   
-  inquiry Enquiry[]
+  enquiry Enquiry[]
+  
+  propertyImages PropertyImages[]
 
+  agent User? @relation(fields: [userId], references:[id])
+  userId String?
   @@map("properties")
 }
 
+
+model PropertyInformation{
+  id String @id @default(cuid())
+  propertyDescription String? @db.LongText
+  propertyType PropertyType @default(LEASE)
+  floorSize Int? 
+  quantityOfBedrooms Int @default(1)
+  quantityOfBathrooms Int @default(1)
+  quantityOfParking Int @default(0)
+  extras String? @db.LongText 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  property Property? @relation(fields: [propertyId], references: [id])
+  propertyId String @unique
+
+  @@map("property_information")  
+}
 model Address{
   id  String @id @default(cuid())
-  addressline1 String? @db.LongText
+  addressLine1 String? @db.LongText
   addressLine2 String? @db.LongText
-  suburb String @db.VarChar(255)
-  postCode String @db.VarChar(10)
+  suburb String @db.VarChar(255) @default("Canberra")
+  postCode String @db.VarChar(10) @default("2600")
+  state States @default(ACT)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -91,11 +141,26 @@ model Enquiry{
   property Property @relation(fields: [propertyId], references: [id])
   propertyId String
 
-  user User @relation(fields: [userId], references: [id])
-  userId String
+  user User? @relation(fields: [userId], references: [id])
+  userId String?
 
   enquiryType EnquiryType @default(LISTING)
   enquirySubject String? @db.LongText
   enquiryMessage String? @db.LongText
   @@map("enquiry")
+}
+
+
+model PropertyImages{
+  id String @id @default(cuid())
+  imageLink String? @db.LongText
+  imageDescription String? @db.LongText
+  imageType PropertyImageType @default(ADDITIONAL)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  property Property? @relation(fields: [propertyId], references: [id])
+  propertyId String?
+
+  @@map("property_images") 
 }
