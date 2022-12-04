@@ -1,6 +1,6 @@
 import { FulfillmentResponse } from "@/types/fulfillmentTypes";
 
-import { Property } from "@prisma/client";
+import {Property, PropertyImages, PropertyInformation } from "@prisma/client";
 import { PrismaContext } from "@prismaContext";
 
 type PropertyListIntentParameters = {
@@ -8,9 +8,13 @@ type PropertyListIntentParameters = {
     city: string;
 };
 
+interface FacingProperty extends Property{
+    propertyImages?:PropertyImages[],
+    propertyInformation?: PropertyInformation
+}
 export default async function processPropertyListIntent(
     parameters: PropertyListIntentParameters
-): FullfillmentResponse {
+): Promise<FulfillmentResponse> {
     const result = await PrismaContext.address.findMany({
         where: {
             postCode: parameters.postCode,
@@ -30,7 +34,7 @@ export default async function processPropertyListIntent(
     // console.log(result);
     if (!result || result.length === 0) {
         let message: FulfillmentResponse = {
-            fullfillmentMessages: [
+            fulfillmentMessages: [
                 {
                     text: {
                         text: [
@@ -45,12 +49,13 @@ export default async function processPropertyListIntent(
     }
 
     const address = result[0];
-    const property: Property = address.property;
+    const property: FacingProperty = address.property;
 
     let msgAddress =
         address.addressLine1 + ", " + address.suburb + ", " + address.postCode;
 
-    let message: FullfillmentResponse = {
+    let images:PropertyImages = property.propertyImages[0];
+    let message: FulfillmentResponse = {
         fulfillmentMessages: [
             {
                 payload: {

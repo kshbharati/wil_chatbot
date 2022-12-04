@@ -32,7 +32,7 @@
       "@prismaContext":[
         "prisma/prismaContext.ts"
       ],
-      "@/types":[
+      "@/types/*":[
         "types/*"
       ],
     },

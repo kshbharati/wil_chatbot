@@ -55,7 +55,7 @@ export default async function Page({params}) {
 
 }
 
-export async function getProperty(pid:any){
+async function getProperty(pid:any){
     let link="http://localhost:3000/api/property/";
     if(pid){
         link+=pid;

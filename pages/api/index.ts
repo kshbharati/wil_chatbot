@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import {PrismaContext} from "@prismaContext"
 import {Address, Property, PropertyImages, User} from '@prisma/client'
-import {RichResponse, FullfillmentResponse} from '@/types/dialogflowFulfillmentTypes'
 import processPropertyListIntent from "dialogflowComponents/processPropertyListIntent";
 
 interface DialogflowRequest{

@@ -2,17 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import {PrismaContext} from 'prisma/prismaContext'
 import { Property } from "@prisma/client";
-// type CardFulfillmentResponse = {
-//     card: {
-//         title:string,
-//         subtitle:string,
-//         imageUri:string,
-//         buttons:[{
-//             text:string,
-//             postback:string
-//         }]
-//     }
-// }
+
 
 export default async function handler(
     req: NextApiRequest,
