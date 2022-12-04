@@ -73,3 +73,22 @@ describe("api/user/claf8ct4p0000dwqjpz5sqo12", () => {
         expect(obj.name).toEqual('Bob')
     });
 });
+
+
+describe("api/user/claf8ct4p0000dwqjpz5sqo12", () => {
+    test("returns a json", async () => {
+        const { req, res } = createMocks({
+            method: "GET",
+            query: {
+                uid: "claf8ct4p0000dwqjpz5sqo12",
+            },
+        });
+
+        await userHandler(req, res);
+
+        expect(res._getStatusCode()).toBe(200);
+        const obj = JSON.parse(res._getData());
+
+        expect(obj.name).toEqual("Bob");
+    });
+});

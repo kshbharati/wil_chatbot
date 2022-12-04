@@ -4,21 +4,19 @@ import '../styles/globals.css'
 import HeaderComponent from '@components/header'
 import FooterComponent from '@components/footer'
 import ChatBotComponent from '@components/chatbot'
-import SliderComponent from "@components/Featured/slider";
+
 export default function Layout({ children }) {
     return (
         <html lang="en">
             <head>
                 <title>Home</title>
+                <meta name="viewport" content="width-device-width, initial-scale=1"></meta>
             </head>
             <body>
                 <div>
                     <HeaderComponent />
-                    <div className="featured" style={{maxHeight:'500px'}}>
-                        <SliderComponent />
-                    </div>
                     {children}
-                    <FooterComponent />
+                    {/* <FooterComponent /> */}
                     <ChatBotComponent />
                 </div>
             </body>

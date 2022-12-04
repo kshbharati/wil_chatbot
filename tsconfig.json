@@ -28,7 +28,13 @@
     "paths": {
       "@components/*": [
         "components/*"
-      ]
+      ],
+      "@prismaContext":[
+        "prisma/prismaContext.ts"
+      ],
+      "@/types/*":[
+        "types/*"
+      ],
     },
   },
   "include": [
