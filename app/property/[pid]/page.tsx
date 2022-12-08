@@ -1,15 +1,22 @@
+
 import {Property, Address} from 'prisma'
 import Image from 'next/image'
 import { PropertyImages, PropertyInformation } from '@prisma/client';
+import {notFound} from 'next/navigation'
 
 const imageLoader=(src:string)=>{
     return src;
 }
 
 export default async function Page({params}) {
+
     let link="http://localhost:3000/api/property/"+params.pid;
 
+
     const res = await fetch(link);
+    if(res.status===404){
+        notFound();
+    }
     let property:Property= await res.json();
     if(property){
         let propertyImg:PropertyImages=property.propertyImages[0];
@@ -54,6 +61,7 @@ export default async function Page({params}) {
 
 
 }
+
 
 async function getProperty(pid:any){
     let link="http://localhost:3000/api/property/";
