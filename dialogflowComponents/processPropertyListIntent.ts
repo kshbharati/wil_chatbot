@@ -31,14 +31,13 @@ export default async function processPropertyListIntent(
         },
     });
 
-    // console.log(result);
     if (!result || result.length === 0) {
         let message: FulfillmentResponse = {
             fulfillmentMessages: [
                 {
                     text: {
                         text: [
-                            "No such Item Exist!!. Would you like to search for some other region?",
+                            "No such Property Exist!!. Would you like to search for some other region?",
                         ],
                     },
                 },
@@ -54,7 +53,16 @@ export default async function processPropertyListIntent(
     let msgAddress =
         address.addressLine1 + ", " + address.suburb + ", " + address.postCode;
 
-    let images:PropertyImages = property.propertyImages[0];
+    //Formats thumbnail image link and alt description
+    let thumbnailImageLink="";
+    let altText="Image of a Property";
+    if(property.propertyImages[0])
+    {
+        let image:PropertyImages=property.propertyImages[0];
+        thumbnailImageLink=image.imageLink;
+        altText=image.imageDescription;
+    }
+
     let message: FulfillmentResponse = {
         fulfillmentMessages: [
             {
@@ -63,8 +71,8 @@ export default async function processPropertyListIntent(
                         [
                             {
                                 type: "image",
-                                rawUrl: property.propertyImages[0].imageLink,
-                                accessibilityText: property.propertyImages[0].imageDescription ? property.propertyImages[0].imageDescription : "image",
+                                rawUrl: thumbnailImageLink,
+                                accessibilityText: altText
                             },
                             {
                                 type: "accordion",
@@ -74,8 +82,7 @@ export default async function processPropertyListIntent(
                                 subtitle: msgAddress,
                                 image: {
                                     src: {
-                                        rawUrl: property.propertyImages[0]
-                                            .imageLink,
+                                        rawUrl: thumbnailImageLink,
                                     },
                                 },
                                 actionLink:

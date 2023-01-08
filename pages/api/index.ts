@@ -27,8 +27,9 @@ export default async function DialogFlowRequestHandler(
     const query = req.body.queryResult;
   
     const {intent, outputContexts,parameters} = query;
-    if(intent.displayName==="PropertyListingIntent")
+    if(intent.displayName==="PropertyListing")
     {
+        console.log("Property");
         const message=await processPropertyListIntent(parameters);
         res.status(200).json(message);
     }

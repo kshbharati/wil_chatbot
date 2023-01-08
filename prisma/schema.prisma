@@ -115,7 +115,7 @@ model PropertyInformation{
   updatedAt DateTime @updatedAt
 
   property Property? @relation(fields: [propertyId], references: [id])
-  propertyId String @unique
+  propertyId String? @unique
 
   @@map("property_information")  
 }
@@ -129,8 +129,8 @@ model Address{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  property Property @relation(fields: [propertyId], references: [id])
-  propertyId String @unique
+  property Property? @relation(fields: [propertyId], references: [id])
+  propertyId String? @unique
 
   @@map("addresses")
 }
