@@ -1,5 +1,17 @@
 
 import { PrismaClient } from "@prisma/client";
 
-export const PrismaContext = new PrismaClient();
 
+
+const context= () =>{
+    let prismaContext
+        if (global.prismaContext) {
+            global.prismaContext = global.prismaContext;
+        } else {
+            prismaContext = new PrismaClient();
+        }
+        return prismaContext;
+}
+
+const PrismaContext = context();
+export {PrismaContext};
