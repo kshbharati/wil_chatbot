@@ -29,9 +29,14 @@ enum PropertyImageType{
 }
 
 //PropertyType
-enum PropertyType{
+enum PropertyListingType{
   LEASE
   SELL
+}
+
+enum PropertyType{
+  HOME
+  APARTMENT
 }
 
 enum States{
@@ -67,7 +72,7 @@ model Contact {
 
   landline String? @db.VarChar(20)
   mobile String? @db.VarChar(20)
-  website String? @db.VarChar(20)
+  website String? @db.VarChar(255)
   facebook String? @db.VarChar(255)
   twitter String? @db.VarChar(255)
   instagram String? @db.VarChar(255)
@@ -104,7 +109,8 @@ model Property {
 model PropertyInformation{
   id String @id @default(cuid())
   propertyDescription String? @db.LongText
-  propertyType PropertyType @default(LEASE)
+  propertyListingType PropertyListingType @default(LEASE)
+  propertyType PropertyType @default(APARTMENT)
   floorSize Int? 
   quantityOfBedrooms Int @default(1)
   quantityOfBathrooms Int @default(1)
@@ -150,6 +156,17 @@ model Enquiry{
   @@map("enquiry")
 }
 
+model ChatbotEnquiry{
+  id String @id @default(cuid())
+  name String @db.Text
+  email String @db.Text
+  phoneNumber String @db.Text
+  enquiryDescription String? @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("chatbot_enquiry")
+}
 
 model PropertyImages{
   id String @id @default(cuid())
