@@ -68,7 +68,22 @@ yarn prisma studio
 ```
 
 
-- Access prisma studio on given port number usually 5555. [http://localhost:5555]
+- Access prisma studio on given port number usually 5555. [http://localhost:5555](http://localhost:5555)
+
+
+## Config Files
+
+Next: ```next.config.js```
+
+TypeScipt: ```tsconfig.json #Do not edit.```
+
+Jest: ```jest.config.ts```
+
+Playwright: ```playwight.config.ts```
+
+PostCss: ```postcss.config.js```
+
+Tailwind: ```tailwind.configjs```
 
 
 
