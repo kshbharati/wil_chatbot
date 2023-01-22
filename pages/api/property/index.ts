@@ -30,6 +30,6 @@ export default async function handler(
     //     ],
     // });
 
-    const property = await PrismaContext.property.findMany();
+    const property = await PrismaContext?.property.findMany();
     res.status(200).json(property);
 }

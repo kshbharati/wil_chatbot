@@ -8,6 +8,7 @@ const nextConfig = {
     images: {
         domains: [
           "thumbs.dreamstime.com",
+          "cdn.pixabay.com"
         ],
     },
     // api:{

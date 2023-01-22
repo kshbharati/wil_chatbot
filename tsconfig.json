@@ -35,6 +35,9 @@
       "@/types/*":[
         "types/*"
       ],
+      "@/constants/*":[
+        "constants.ts"
+      ]
     },
   },
   "include": [

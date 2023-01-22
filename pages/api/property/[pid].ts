@@ -23,7 +23,7 @@ export default async function propertyHandler(req:NextApiRequest, res:NextApiRes
 async function getPropertyById(pid:string): Promise<Property | null>{
     try {
 
-            const property= await PrismaContext.property.findUnique({
+            const property= await PrismaContext?.property.findUnique({
                 where: {
                     id: pid,
                 },
@@ -39,7 +39,7 @@ async function getPropertyById(pid:string): Promise<Property | null>{
             if (!property) return null;
             return property;
     } catch (error) {
-        console.trace(error);
+        return null;
     }
 
 }
