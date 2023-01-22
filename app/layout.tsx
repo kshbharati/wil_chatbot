@@ -5,7 +5,10 @@ import HeaderComponent from '@components/header'
 import FooterComponent from '@components/footer'
 import ChatBotComponent from '@components/chatbot'
 
-export default function Layout({ children }) {
+interface LayoutProps {
+    children: React.ReactNode;
+}
+export default function Layout({ children}:LayoutProps) {
     return (
         <html lang="en">
             <head>
