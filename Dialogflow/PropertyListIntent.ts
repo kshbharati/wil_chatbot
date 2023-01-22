@@ -5,10 +5,14 @@ import { PrismaContext } from "@prismaContext";
 import {API_URI} from "../constants";
 import {randomBetween} from "../helpers";
 import * as IntentEvent from "../constants";
+import * as uuid from 'uuid';
 
 type PropertyListIntentParameters = {
     postCode: string;
     city: string;
+    propertyType:string;
+    propertyListingType:string;
+    propertyId?:string;
 };
 
 interface FacingProperty extends Property{
@@ -54,25 +58,64 @@ export default async function processPropertyListIntent(
         },
     });
 
-    if (!result || result.length === 0) {
-        return NotFoundMessageResponse();
+
+    if (!result) {
+        return NotFoundMessageResponse(outputContexts);
+    }
+    
+
+    //Leaves out any address with empty property
+    //Also Leaves out any already displayed property from previous query (Just for One Tuen)
+    //TODO: Can be expaned using redis/other form of storage (outputContext) to remember all the previous displayed properties and exclude them
+    //Out of Scope For This.
+
+    let excludedResult=[];
+
+    for(let data of result)
+    {
+        if (!data.property) {
+            continue;
+        }
+
+        if(data.property?.id === parameters.propertyId)
+        {   
+            continue;
+        }
+        excludedResult.push(data);
     }
 
+    if (!excludedResult || excludedResult === null || excludedResult.length===0) {
+        return NotFoundMessageResponse(outputContexts);
+    }
+
+    //Randomly selects a property from given list but selects the first item if the length of array is only 1
+    let address=excludedResult[0];
     
-    const address = result[randomBetween(0, result.length-1)];
+    if(excludedResult.length>1)
+    {
+        address= excludedResult[randomBetween(0, excludedResult.length - 1)];
+    }
+    //
+
     let property: FacingProperty = address.property as FacingProperty;
     
-    if (!property || property === undefined) {
+    if (!property) {
 
 
-        return NotFoundMessageResponse();
+        return NotFoundMessageResponse(outputContexts);
     }
-
+    
     return FormatPropertyResponse(address, property,parameters,outputContexts);
 
 }
-
-function FormatPropertyResponse(address:Address, property:FacingProperty, parameters:any, outputContexts:any){
+/**
+ * @param  {Address} address
+ * @param  {FacingProperty} property
+ * @param  {any} parameters
+ * @param  {any} outputContexts
+ * @returns FulfillmentResponse
+ */
+function FormatPropertyResponse(address:Address, property:FacingProperty, parameters:PropertyListIntentParameters, outputContexts:any):FulfillmentResponse{
         //Format Address and Property Information for Response Message
     let msgAddress =
         address.addressLine1 + ", " + address.suburb + ", " + address.postCode;
@@ -99,6 +142,9 @@ function FormatPropertyResponse(address:Address, property:FacingProperty, parame
 
     //Unique property URL
     let productUrl=API_URI+"/property/" +property.id;
+
+    
+    parameters.propertyId=property.id;
 
     //Create fulfillmentMessage
     let message: FulfillmentResponse = {
@@ -141,7 +187,7 @@ function FormatPropertyResponse(address:Address, property:FacingProperty, parame
                                     name: IntentEvent.EnquiryFormIntent,
                                     langugeCode: "en",
                                     parameters: {
-                                        propertyID:property.id
+                                        propertyID: property.id,
                                     },
                                 },
                             },
@@ -150,7 +196,7 @@ function FormatPropertyResponse(address:Address, property:FacingProperty, parame
                             },
                             {
                                 type: "list",
-                                title: "No",
+                                title: "No, Show me Another.",
                                 event: {
                                     name: IntentEvent.PropertyListingIntent,
                                     langugeCode: "en",
@@ -160,9 +206,6 @@ function FormatPropertyResponse(address:Address, property:FacingProperty, parame
                             {
                                 type: "chips",
                                 options: [
-                                    {
-                                        text: "More",
-                                    },
                                     {
                                         text: "Edit",
                                     },
@@ -180,14 +223,17 @@ function FormatPropertyResponse(address:Address, property:FacingProperty, parame
 
     return message;
 }
-
-function NotFoundMessageResponse():FulfillmentResponse{
+/**
+ * @returns FulfillmentResponse
+ */
+function NotFoundMessageResponse(outputContexts:any):FulfillmentResponse{
     return {
+            outputContexts:outputContexts,
             fulfillmentMessages: [
                 {
                     text: {
                         text: [
-                            "No such Property Exist!!. Would you like to search for some other region?",
+                            "All the properties are shown or no such Property Exist!!. Would you like to search for some other region?",
                         ],
                     },
                 },
