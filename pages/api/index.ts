@@ -4,7 +4,6 @@ import processPropertyListIntent from "Dialogflow/PropertyListIntent";
 import processEnquiryForm from "Dialogflow/EnquiryFormIntent";
 
 import * as IntentEvent from "../../constants";
-
 interface DialogflowRequest{
     responseId:string,
     queryResult:{},
@@ -17,29 +16,26 @@ export default async function DialogFlowRequestHandler(
 )
 {
     //Dialogflow only requests using POST method. So we want to discard any other methods.
-    if(req.method !== 'POST'){
-        res.status(403).json({message:"ONLY POST METHODS ALLOWED"});
+    if (req.method !== "POST") {
+        res.status(403).json({ message: "ONLY POST METHODS ALLOWED" });
         return;
     }
 
     const query = req.body.queryResult;
-  
-    const {intent, outputContexts,parameters} = query;
+
+    let { intent, outputContexts, parameters } = query;
 
     //Redirect intent based on their name
 
-    if(intent.displayName==="PropertyListing")
-    {
-        const message=await processPropertyListIntent(parameters, outputContexts);
-        res.status(200).json(message);
-        return;
-    }
+    //Both Intent work the same way. 
+    //Get previous parameters from main Intent and pass
+    //PropertyListingMore Intent sends one more parameter called propertyId which can help exclude it from search result so no repeat search is seen.
 
-    //Get previous parameters from main Intent and pass 
-    if(intent.displayName==="PropertyListingMore")
-    {   
-
-        const message=await processPropertyListIntent(parameters,outputContexts);
+    if (
+        intent.displayName === "PropertyListing" ||
+        intent.displayName === "PropertyListingMore"
+    ) {
+        const message = await processPropertyListIntent(parameters,outputContexts);
         res.status(200).json(message);
         return;
     }
@@ -50,19 +46,10 @@ export default async function DialogFlowRequestHandler(
         return;
     }
 
-    /* 
-        Shorthand to trigger other intent based on user intentions
-        {
-            followupEventInput: {
-            name: ""
-            }
-        }
-    */
-    
     if (intent.displayName === "PropertyListingEditParams") {
         const message = {
             followupEventInput: {
-                name: IntentEvent.PropertyListingIntent
+                name: IntentEvent.PropertyListingIntent,
             },
         };
         res.status(200).json(message);
@@ -101,15 +88,15 @@ export default async function DialogFlowRequestHandler(
 
         return;
     }
-    
+
     if (intent.displayName === "EnquiryYes") {
         const message = {
             followupEventInput: {
-                name: IntentEvent.EnquiryFormIntent
+                name: IntentEvent.EnquiryFormIntent,
             },
         };
         res.status(200).json(message);
-        
+
         return;
     }
 
@@ -117,7 +104,7 @@ export default async function DialogFlowRequestHandler(
     if (intent.displayName === "EnquiryNo") {
         const message = {
             followupEventInput: {
-                name: IntentEvent.WelcomeIntent
+                name: IntentEvent.WelcomeIntent,
             },
         };
         res.status(200).json(message);
