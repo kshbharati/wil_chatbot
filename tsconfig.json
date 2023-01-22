@@ -9,8 +9,8 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false, //Turn This false only for testing
-    "noImplicitAny": false, //If set strict true, delete this line
+    "strict": true, //Turn This false only for testing
+    // "noImplicitAny": false, //If set strict true, delete this line
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -35,6 +35,9 @@
       "@/types/*":[
         "types/*"
       ],
+      "@/constants/*":[
+        "constants.ts"
+      ]
     },
   },
   "include": [
