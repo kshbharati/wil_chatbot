@@ -1,95 +1,86 @@
-export type FulfillmentResponse = {
-    fulfillmentMessages: [CardResponse | MessageResponse | PayloadResponse];
-};
+// export interface FulfillmentResponse = {
+//     followupEventInput?: any,
+//     outputContexts?: any,
+//     fulfillmentMessages?: [MessageResponse | PayloadResponse]
+// };
 
-export type CardResponse = {
+export interface FulfillmentResponse {
+    followupEventInput?: FollowupEventInputResponse;
+    outputContexts?: any;
+    fulfillmentMessages?: (CardResponse | MessageResponse | PayloadResponse)[];
+}
+
+interface CardResponse{
     card: {
-        title: string;
-        subtitle: string;
-        imageUri: string;
+        title: string,
+        subtitle: string,
+        imageUri: string,
         buttons: ({
-            text: string;
-            postback: string;
+            text: string,
+            postback: string,
         })[];
-    };
+    }
+}
+
+interface MessageResponse{
+    text?:{
+        text:string[]
+    }
 };
 
-type MessageResponse = {
-    text: {
-        text: (string)[];
-    };
-};
+interface FollowupEventInputResponse{
+    name:string;
+    parameters?:[];
+    languageCode?:string;
+}
+interface EventForwardingResonse{
 
-
+}
 /*****************************/
 /*****************************/
 /*****DIALOGFLOW MESSENGER****/
-/*****RICH RESPONSE TYPES*****/
+/*****RICH RESPONSE interfaceS*****/
 /**********START**************/
 /*****************************/
-type PayloadResponse = {
-    payload: RichResponse;
+interface PayloadResponse{
+    payload: RichResponse
 };
 
-type RichResponse = { richContent: [(InfoResponse|ImageResponse|ChipOptions)[]] };
-type InfoResponse = {
-    type: ResponseType
-    title: string;
-    subtitle?: string;
+interface RichResponse{
+    richContent: [(InfoResponse| ImageResponse| ChipsResponse)[]]
+};
+interface InfoResponse{
+    type: ResponseType,
+    title?: string,
+    subtitle?: string,
     image?: {
         src: {
-            rawUrl: string;
+            rawUrl: string
         };
     };
-    actionLink: string;
-    text?:string;
+    actionLink?: string,
+    text?:string,
 };
 
-type ImageResponse = {
+interface ImageResponse{
     type:ResponseType,
-    rawUrl:string,
+    rawUrl?:string,
     accessibilityText?:string,
 }
 
-type ChipsResponse = {
+interface ChipsResponse{
     type:ResponseType,
-    options:(ChipOptions)[]
+    options?:(ChipOptions)[]
 }
 
-type ChipOptions= {
+interface ChipOptions{
     text:string,
-    link:string
+    link?:string
 }
 type ResponseType= "image" | "info" | "accordion" | "chips"
 /*****************************/
 /*****************************/
 /*****DIALOGFLOW MESSENGER****/
-/*****RICH RESPONSE TYPES*****/
+/*****RICH RESPONSE interfaceS*****/
 /**********END**************/
 /*****************************/
-
-let message:FulfillmentResponse={
-    fulfillmentMessages:[{
-        payload:{
-            richContent:[
-                [
-                    {
-                        type:"image",
-                        rawUrl:"",
-                        accessibilityText:""
-                    },
-                    {
-                        type:"info",
-                        title:"",
-                        image:{
-                            src:{
-                                rawUrl:""
-                            }
-                        },
-                        actionLink:""
-                    }
-                ]
-            ]
-        }
-    }]
-}
