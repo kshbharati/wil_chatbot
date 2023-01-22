@@ -1,6 +1,6 @@
 import DefaultTags from "app/DefaultTags";
 
-export default function Head({ params }) {
+export default function Head({ params:{} }) {
     return (
         <>
             <DefaultTags />
