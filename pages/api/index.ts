@@ -4,12 +4,11 @@ import processPropertyListIntent from "Dialogflow/PropertyListIntent";
 import processEnquiryForm from "Dialogflow/EnquiryFormIntent";
 
 import * as IntentEvent from "../../constants";
-interface DialogflowRequest{
-    responseId:string,
-    queryResult:{},
 
-}
-
+/**
+ * @param  {NextApiRequest} req
+ * @param  {NextApiResponse} res
+ */
 export default async function DialogFlowRequestHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -31,6 +30,7 @@ export default async function DialogFlowRequestHandler(
     //Get previous parameters from main Intent and pass
     //PropertyListingMore Intent sends one more parameter called propertyId which can help exclude it from search result so no repeat search is seen.
 
+    
     if (
         intent.displayName === "PropertyListing" ||
         intent.displayName === "PropertyListingMore"
@@ -101,6 +101,7 @@ export default async function DialogFlowRequestHandler(
     }
 
     //Sends to Welcome Intent when user doesn't accept disclaimer and Privacy Notice.
+
     if (intent.displayName === "EnquiryNo") {
         const message = {
             followupEventInput: {
