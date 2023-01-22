@@ -47,7 +47,7 @@ interface PayloadResponse{
 };
 
 interface RichResponse{
-    richContent: [(InfoResponse| ImageResponse| ChipsResponse)[]]
+    richContent: [(InfoResponse| ImageResponse| ChipsResponse | ButtonResponse)[]]
 };
 interface InfoResponse{
     type: ResponseType,
@@ -77,7 +77,33 @@ interface ChipOptions{
     text:string,
     link?:string
 }
-type ResponseType= "image" | "info" | "accordion" | "chips"
+
+interface ButtonResponse{
+    type:ResponseType,
+    icon?:{
+        type?:string,
+        color:string
+    },
+    text:string,
+    link?:string
+    event?:{
+        name:string,
+        langugeCode?:string,
+        parameters?:any
+    }
+}
+
+interface ListResponse{
+    type:ResponseType,
+    title:string,
+    subtitle?:string,
+    event?:{
+        name:string,
+        languageCode:string,
+        parameters:any
+    }
+}
+type ResponseType= "button" | "image" | "info" | "accordion" | "chips" | "divider" | "list" ;
 /*****************************/
 /*****************************/
 /*****DIALOGFLOW MESSENGER****/
