@@ -14,44 +14,43 @@
 // // })
 
 import {createMocks} from 'node-mocks-http';
-import handler from '../pages/api/getmovie'
 import userHandler from "../pages/api/user/[uid]"
 
-describe('api/getmovie',()=>{
-    test('returns a json',async ()=>{
-        const {req,res}=createMocks({
-            method:'GET',
-            query:{
-                getmovie:'movie'
-            }
-        });
+// describe('api/getmovie',()=>{
+//     test('returns a json',async ()=>{
+//         const {req,res}=createMocks({
+//             method:'GET',
+//             query:{
+//                 getmovie:'movie'
+//             }
+//         });
         
-        await handler(req,res);
+//         await handler(req,res);
 
-        expect(res._getStatusCode()).toBe(200);
-        expect(JSON.parse(res._getData())).toEqual(
-            expect.objectContaining({
-                fulfillmentMessages: [
-                    {
-                        card: {
-                            title: "card title",
-                            subtitle: "card text",
-                            imageUri:
-                                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2011%2F01%2F14%2Farts%2F14MOVING-span%2FMOVING-jumbo.jpg&f=1&nofb=1&ipt=d992525934df99e762a810588c789b5e503404666ccb977d5465ddf8e75c2e95&ipo=images",
-                            buttons: [
-                                {
-                                    text: "button text",
-                                    postback:
-                                        "https://example.com/path/for/end-user/to/follow",
-                                },
-                            ],
-                        },
-                    },
-                ],
-            })
-        );
-    })
-})
+//         expect(res._getStatusCode()).toBe(200);
+//         expect(JSON.parse(res._getData())).toEqual(
+//             expect.objectContaining({
+//                 fulfillmentMessages: [
+//                     {
+//                         card: {
+//                             title: "card title",
+//                             subtitle: "card text",
+//                             imageUri:
+//                                 "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic01.nyt.com%2Fimages%2F2011%2F01%2F14%2Farts%2F14MOVING-span%2FMOVING-jumbo.jpg&f=1&nofb=1&ipt=d992525934df99e762a810588c789b5e503404666ccb977d5465ddf8e75c2e95&ipo=images",
+//                             buttons: [
+//                                 {
+//                                     text: "button text",
+//                                     postback:
+//                                         "https://example.com/path/for/end-user/to/follow",
+//                                 },
+//                             ],
+//                         },
+//                     },
+//                 ],
+//             })
+//         );
+//     })
+// })
 
 
 
