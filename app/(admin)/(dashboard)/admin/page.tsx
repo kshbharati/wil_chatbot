@@ -280,7 +280,6 @@ export default function AdminHome() {
                 <Button variant="contained" onClick={()=>{
                     destroyCookie({}, 'loggedInUser', {path:"/admin"});
                     let cookie=parseCookies();
-                    console.log(cookies);
                     router.refresh();
                 }}>Log Out</Button>
             </div>
