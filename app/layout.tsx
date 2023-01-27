@@ -5,22 +5,24 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import 'tw-elements';
 import HeaderComponent from '@components/HeaderComponent'
 import FooterComponent from '@components/FooterComponent'
 import ChatBotComponent from '@components/ChatbotComponent'
-import Head from 'next/head'
-import DefaultTags from 'app/DefaultTags';
+import { useEffect } from 'react';
+
 interface LayoutProps {
     children: React.ReactNode;
 }
 export default function Layout({ children}:LayoutProps) {
+    useEffect(() => {
+        const use = async () => {
+            (await import("tw-elements")).default;
+        };
+        use();
+    }, []);
+    
     return (
         <html lang="en">
-            <Head>
-                <DefaultTags />
-                <title>Home</title>
-            </Head>
             <body>
                 <div>
                     <HeaderComponent />
