@@ -12,10 +12,10 @@ export default function Menu() {
                         <MenuItem title="Home" link="/" />
                     </li>
                     <li>
-                        <MenuItem title="Property" link="#property" />
+                        <MenuItem title="Property" link="/property" />
                     </li>
                     <li>
-                        <MenuItem title="Agents" link="#agent" />
+                        <MenuItem title="Agents" link="/agent" />
                     </li>
                 </ul>
             </div>
