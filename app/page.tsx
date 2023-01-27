@@ -1,20 +1,11 @@
-import SliderComponent from "@components/Featured/slider";
+import SliderComponent from "@components/Featured/SliderComponent";
 
 export default function Page() {
     return (
-        <>
-            {/* <div className="featured" style={{ maxHeight: "500px" }}>
+        <div className="flex place-content-center items-center justify-center w-screen bg-gray-500">
+            <div className="w-11/12 drop-shadow-2xl shadow-2xl">
                 <SliderComponent />
-            </div> */}
-            {/* <div className="propertyListing">
-                <p>Property Listing</p>
             </div>
-            <div className="agentList">
-                <p>Agent Listing</p>
-            </div>
-            <div className="contact">
-                <p>Contact Info</p>
-            </div> */}
-        </>
+        </div>
     );
 }
