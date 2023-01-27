@@ -1,10 +1,10 @@
 import DefaultTags from "app/DefaultTags";
 
-export default function HeadComponent() {
+export default function PropertyHeadComponent() {
     return (
         <>
             <DefaultTags />
-            <title>Buy With Us</title>
+            <title>Property | Buy With Us</title>
         </>
     );
 }

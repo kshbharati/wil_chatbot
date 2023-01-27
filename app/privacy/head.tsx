@@ -1,10 +1,9 @@
 import DefaultTags from "app/DefaultTags";
-
-export default function HeadComponent() {
+export default function PrivacyHeadComponent() {
     return (
         <>
             <DefaultTags />
-            <title>Buy With Us</title>
+            <title>Privacy Policy | Buy With Us</title>
         </>
     );
 }
