@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {User, Prisma, PrismaClient} from '@prisma/client'
+import {User, Prisma, PrismaClient, ChatbotEnquiry} from '@prisma/client'
+import { PrismaContext } from "@prismaContext";
 
 const prisma = new PrismaClient();
 
@@ -11,14 +12,14 @@ interface UserId{
   id:number
 }
 
-//Read users
-async function  user(userId:any):Promise<User | null>{
-    return await prisma.user.findUnique({
-        where: {
-            id: userId,
-        },
-    });
-}
+// //Read users
+// async function  user(userId:any):Promise<User | null>{
+//     return await prisma.user.findUnique({
+//         where: {
+//             id: userId,
+//         },
+//     });
+// }
 
 //http://localhost/api/user/claf8ct4p0000dwqjpz5sqo12
 
@@ -31,7 +32,16 @@ export default async function userHandler(
         where: {
             id: uid as string,
         },
+        include:{
+          contact:true
+        }
     });
-    res.status(200).json(user);
+
+    const enquiries: ChatbotEnquiry[] =
+        await PrismaContext?.chatbotEnquiry.findMany();
+
+
+
+    res.status(200).json({user:user,enquiries:enquiries});
 }
 
