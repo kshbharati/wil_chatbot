@@ -62,14 +62,15 @@ function propertyView(property: FacingProperty) {
     let agent: FacingUser = property.agent;
     return (
         <>
+            <Header title={property.name+" | Buy With Us"} />
             <div className="w-full flex flex-col min-w-full">
                 <div className="information flex static w-full max-w-full">
                     <div className="shadow-inner w-full min-h-96 h-96 bg-slate-400 overflow-hidden">
                         <Image
-                            src={propertyImg.imageLink}
+                            src={propertyImg?.imageLink}
                             height={720}
                             width={1280}
-                            alt={propertyImg.imageDescription}
+                            alt={propertyImg?.imageDescription}
                             className="w-full h-96 object-cover"
                             placeholder='empty'
                         />
