@@ -15,7 +15,6 @@ export default async function processEnquiryForm(params:any): Promise<Fulfillmen
 
 
     if(params.propertyId) description = params.propertyId;
-    console.log("Params " + description);
     const chatbotEnquiry: ChatbotEnquiry | undefined = 
         await PrismaContext?.chatbotEnquiry.create({
             data: {
