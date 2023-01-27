@@ -1,6 +1,4 @@
-import SliderComponent from "@components/Featured/SliderComponent";
-
-export default function sitemap() {
+export default function Sitemap() {
     return (
         <>
             <p>Sitemap</p>
