@@ -26,8 +26,13 @@
       }
     ],
     "paths": {
+      //React Components
       "@components/*": [
         "components/*"
+      ],
+      //Styling sheets,
+      "@styles/*":[
+        "styles/*"
       ],
       "@prismaContext":[
         "prisma/prismaContext.ts"

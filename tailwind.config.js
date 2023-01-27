@@ -1,3 +1,5 @@
+const { default: plugin} = require('tailwindcss');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -5,7 +7,14 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            height: {
+                180: "80rem",
+            },
+        },
     },
-    plugins: [],
+    plugins: [
+        require("tailwindcss-textshadow"),
+        require("tw-elements/dist/plugin"),
+    ],
 };
