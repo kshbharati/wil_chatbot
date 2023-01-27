@@ -29,7 +29,7 @@ interface FacingUser extends User{
 }
 
 
-export default async function PropertyPage({ params }) {
+export default async function IndividualPropertyPage({ params }) {
     let link = API_URI + "/api/property/" + params.pid;
 
     const res = await fetch(link);
@@ -62,7 +62,6 @@ function propertyView(property: FacingProperty) {
     let agent: FacingUser = property.agent;
     return (
         <>
-            <Header title={property.name} />
             <div className="w-full flex flex-col min-w-full">
                 <div className="information flex static w-full max-w-full">
                     <div className="shadow-inner w-full min-h-96 h-96 bg-slate-400 overflow-hidden">
