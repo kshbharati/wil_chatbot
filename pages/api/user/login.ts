@@ -31,11 +31,11 @@ export default async function login(
     }
 
 
-    if(data.password!==process.env.PASSWORD)
-    {
-        res.status(404).json({ message: "Not Found" });
-        return;
-    }
+    // if(data.password!==process.env.PASSWORD)
+    // {
+    //     res.status(404).json({ message: "Not Found" });
+    //     return;
+    // }
     try{
         const result = await PrismaContext.user.findUnique({
             where: {
