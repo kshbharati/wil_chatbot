@@ -4,7 +4,6 @@ import { PrismaContext } from "prisma/prismaContext";
 
 export default async function propertyHandler(req:NextApiRequest, res:NextApiResponse){
     const {pid} = req.query;
-
     if(!pid){
         res.status(404).json({message:"Item Id is missing!"});
         return;
@@ -17,29 +16,31 @@ export default async function propertyHandler(req:NextApiRequest, res:NextApiRes
     }
 
     res.status(200).json(returnVal);
+    return;
 
 }
 
-async function getPropertyById(pid:string): Promise<Property | null>{
-    try {
+async function getPropertyById(pid:string): Promise<Property>{
 
-            const property= await PrismaContext?.property.findUnique({
-                where: {
-                    id: pid,
-                },
+
+    const property= await PrismaContext?.property.findUnique({
+        where: {
+            id: pid,
+        },
+        include:{
+            propertyImages:true,
+            enquiry:true,
+            address:true,
+            propertyInformation:true,
+            agent:{
                 include:{
-                    propertyImages:true,
-                    enquiry:true,
-                    address:true,
-                    propertyInformation:true
-                    
+                    contact:true
                 }
-            });
-
-            if (!property) return null;
-            return property;
-    } catch (error) {
-        return null;
-    }
+            }
+            
+        }
+    });
+    if (!property) return null;
+    return property;
 
 }
