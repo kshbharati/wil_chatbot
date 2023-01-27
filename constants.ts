@@ -1,5 +1,6 @@
 //APIURL
-const API_URI = "http://localhost:3000";
+
+const API_URI = (process.env.NODE_ENV==="development")?"http://localhost:3000":"https://helisrory.com";
 
 //EventTrigger Names for Intents;
 const PropertyListingIntent="PROPERTY_LISTING";
