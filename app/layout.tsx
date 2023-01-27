@@ -1,25 +1,31 @@
 'use client'
 import '../styles/globals.css'
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
-import HeaderComponent from '@components/header'
-import FooterComponent from '@components/footer'
-import ChatBotComponent from '@components/chatbot'
-
+import 'tw-elements';
+import HeaderComponent from '@components/HeaderComponent'
+import FooterComponent from '@components/FooterComponent'
+import ChatBotComponent from '@components/ChatbotComponent'
+import Head from 'next/head'
+import DefaultTags from 'app/DefaultTags';
 interface LayoutProps {
     children: React.ReactNode;
 }
 export default function Layout({ children}:LayoutProps) {
     return (
         <html lang="en">
-            <head>
+            <Head>
+                <DefaultTags />
                 <title>Home</title>
-                <meta name="viewport" content="width-device-width, initial-scale=1"></meta>
-            </head>
+            </Head>
             <body>
                 <div>
                     <HeaderComponent />
                     {children}
-                    {/* <FooterComponent /> */}
+                    <FooterComponent />
                     <ChatBotComponent />
                 </div>
             </body>
