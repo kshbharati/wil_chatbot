@@ -1,5 +1,5 @@
-import { PrismaContext } from "@prismaContext";
-import {ChatbotEnquiry, Prisma, PrismaClient} from '@prisma/client';
+import { PrismaContext } from "prisma/prismaContext";
+import {ChatbotEnquiry} from '@prisma/client';
 import { FulfillmentResponse } from "@/types/fulfillmentTypes";
 
 
