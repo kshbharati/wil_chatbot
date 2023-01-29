@@ -6,8 +6,6 @@ import {User, Contact, ChatbotEnquiry, Property} from '@prisma/client'
 import { API_URI } from "@/constants/*";
 import Link from "next/link";
 import Button from '@mui/material/Button'
-import path from "path";
-
 interface UserData extends User{
     contact:Contact;
 }
