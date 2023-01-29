@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Property, Address, Enquiry } from '@prisma/client';
+import { Property } from '@prisma/client';
 import { PrismaContext } from "prisma/prismaContext";
 
 export default async function propertyHandler(req:NextApiRequest, res:NextApiResponse){
     const {pid} = req.query;
     if(!pid){
-        res.status(404).json({message:"Item Id is missing!"});
+        res.status(403).json({message:"Forbidden"});
         return;
     }
 
