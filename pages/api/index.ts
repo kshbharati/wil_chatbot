@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {PrismaContext} from "@prismaContext"
 import processPropertyListIntent from "Dialogflow/PropertyListIntent";
 import processEnquiryForm from "Dialogflow/EnquiryFormIntent";
 
@@ -16,12 +15,16 @@ export default async function DialogFlowRequestHandler(
 {
     //Dialogflow only requests using POST method. So we want to discard any other methods.
     if (req.method !== "POST") {
-        res.status(403).json({ message: "ONLY POST METHODS ALLOWED" });
+        res.status(403).json({ message: "Forbidden" });
         return;
     }
 
     const query = req.body.queryResult;
 
+    if(!query){
+        res.status(403).json({message:"Forbidden"});
+        return;
+    }
     let { intent, outputContexts, parameters } = query;
 
     //Redirect intent based on their name
