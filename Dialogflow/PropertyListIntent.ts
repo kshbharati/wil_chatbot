@@ -1,12 +1,10 @@
 import { FulfillmentResponse } from "@/types/fulfillmentTypes";
 
 import {Address, Property, PropertyImages, PropertyInformation } from "@prisma/client";
-import { PrismaContext } from "@prismaContext";
+import { PrismaContext } from "prisma/prismaContext";
 import {API_URI} from "../constants";
 import {randomBetween} from "../helpers";
 import * as IntentEvent from "../constants";
-import * as uuid from 'uuid';
-
 type PropertyListIntentParameters = {
     postCode: string;
     city: string;
