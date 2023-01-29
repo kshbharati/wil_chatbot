@@ -35,11 +35,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Testing
-Use folder ```__test__``` for all test.
 
-Any file with ```filename.test.ts``` are Jest Files.
+###Jest Tests
+Use folder ```__test__``` for jest test.
 
-Any file with ```filename.spec.ts``` are Playwright (End to End) files.
+###Playwright
+Use folder tests for playwright tests.
 
 Integration of Vercel and Checkly helped vastly with End To End Testing and is automated on each production build.
 
