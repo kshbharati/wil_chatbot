@@ -7,7 +7,7 @@ interface LoginParams{
     password:string;
 }
 
-export default async function login(
+export default async function LoginHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -23,7 +23,14 @@ export default async function login(
         return;
     }
 
-    const data:LoginParams=JSON.parse(req.body);
+    let data:LoginParams;
+    try{
+        data=JSON.parse(req.body);
+    }catch(e){
+        data=req.body;
+    }
+
+
     if(!data.username || !data.password)
     {
         res.status(403).json({ message: "Forbidden" });
