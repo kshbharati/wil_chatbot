@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { API_URI } from "../constants";
 
 /**
  * @testcase TS11
@@ -6,7 +7,33 @@ import { test, expect } from "@playwright/test";
  * @relates Relation
  * 
  */
-test("home page as Agent", async ({ page }) => {
-    await page.goto("http://localhost:3000");
-    await expect(page.locator("div.propertyListing>p")).toContainText("Property Listing");
+test("Dialogflow visible in Home Page", async ({ page }) => {
+    await page.goto(API_URI);
+    await expect(page.locator("div#chatbot #widgetIcon")).toBeVisible();
 });
+
+test("Dialogflow visible in Property Page", async ({ page }) => {
+    await page.goto(API_URI + "/property");
+    await expect(page.locator("div#chatbot #widgetIcon")).toBeVisible();
+    await expect(page.locator("df-messenger-user-input")).toBeHidden();
+});
+
+test("Dialogflow visible in Agent Page", async ({ page }) => {
+
+    await page.goto(API_URI + "/agent");
+    await expect(page.locator("div#chatbot #widgetIcon")).toBeVisible();
+    await expect(page.locator("df-messenger-user-input")).toBeHidden();
+});
+
+test("Dialogflow visible in Privacy Page", async ({ page }) => {
+    await page.goto(API_URI + "/privacy");
+    await expect(page.locator("div#chatbot #widgetIcon")).toBeVisible();
+    await expect(page.locator("df-messenger-user-input")).toBeHidden();
+});
+
+test("Dialogflow visible in Sitemap page", async ({ page }) => {
+    await page.goto(API_URI+"/sitemap");
+    await expect(page.locator("div#chatbot #widgetIcon")).toBeVisible();
+    await expect(page.locator("df-messenger-user-input")).toBeHidden();
+});
+
