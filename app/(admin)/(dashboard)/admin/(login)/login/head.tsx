@@ -2,7 +2,7 @@
 export default function LoginHead(){
     return(
         <>
-            <title>Login</title>
+            <title>Login | Buy With Us</title>
         </>
     );
 }
