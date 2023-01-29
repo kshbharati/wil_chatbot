@@ -1,17 +1,18 @@
 import { type PlaywrightTestConfig, devices } from "@playwright/test";
+import { API_URI } from "./constants";
 
 const config: PlaywrightTestConfig = {
-    testDir:'__test__/frontend',
+    testDir:'tests',
     retries:2,
     timeout:30000,
     webServer:{
         command:'yarn dev',
-        url:'http://localhost:3000/',
+        url:API_URI,
         timeout:120 * 1000,
         reuseExistingServer: !process.env.CI,
     },
     use:{
-        baseURL:'http://localhost:3000/',
+        baseURL:API_URI,
         screenshot:'only-on-failure',
         trace:'retain-on-failure'
     },
